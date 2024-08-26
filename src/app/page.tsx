@@ -5,8 +5,11 @@ export default function RegisterForm() {
   const [fname, setFname] = useState("");
   const [fnameError, setFnameError] = useState(false);
   const [lname, setLname] = useState("");
+  const [lnameError, setLnameError] = useState(false);
   const [plan, setPlan] = useState("");
+  const [planError, setPlanError] = useState(false);
   const [gender, setGender] = useState("");
+  const [genderError, setGenderError] = useState(false);
   const [buyBottle, setBuyBottle] = useState(false);
   const [buyShoes, setBuyShoes] = useState(false);
   const [buyCap, setBuyCap] = useState(false);
@@ -19,18 +22,22 @@ export default function RegisterForm() {
   };
 
   const inputLnameOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLnameError(false);
     setLname(event.target.value);
   };
 
   const selectPlanOnChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setPlanError(false);
     setPlan(event.target.value);
   };
 
   const radioGenderMaleOnChange = () => {
+    setGenderError(false);
     setGender("male");
   };
 
   const radioGenderFemaleOnChange = () => {
+    setGenderError(false);
     setGender("female");
   };
 
@@ -65,16 +72,36 @@ export default function RegisterForm() {
 
   const registerBtnOnClick = () => {
     let fnameOk = true;
+    let lnameOk = true;
+    let planOk = true;
+    let genderOk = true;
+
     if (fname === "") {
       fnameOk = false;
       setFnameError(true);
     }
 
-    if (fnameOk) {
+    if (lname === "") {
+      lnameOk = false;
+      setLnameError(true);
+    }
+
+    if (plan === "") {
+      planOk = false;
+      setPlanError(true);
+    }
+
+    if (gender === "") {
+      genderOk = false;
+      setGenderError(true);
+    }
+
+    if (fnameOk && lnameOk && planOk && genderOk) {
       alert(
         `Registration complete. Please pay money for ${computeTotalPayment().toLocaleString()} THB.`
       );
     }
+
   };
 
   return (
@@ -94,7 +121,7 @@ export default function RegisterForm() {
         <div>
           <label className="form-label">Last name</label>
           <input
-            className={"form-control" + (fnameError ? " is-invalid" : "")}
+            className={"form-control" + (lnameError ? " is-invalid" : "")}
             onChange={inputLnameOnChange}
             value={lname}
           />
@@ -106,7 +133,7 @@ export default function RegisterForm() {
       <div>
         <label className="form-label">Plan</label>
         <select
-          className="form-select"
+          className={"form-select" + (planError ? " is-invalid" : "")}
           onChange={selectPlanOnChange}
           value={plan}
         >
@@ -124,7 +151,7 @@ export default function RegisterForm() {
         <label className="form-label">Gender</label>
         <div>
           <input
-            className="me-2 form-check-input"
+            className="me-2 form-check-input" 
             type="radio"
             onChange={radioGenderMaleOnChange}
             checked={gender === "male"}
@@ -140,6 +167,7 @@ export default function RegisterForm() {
           {/* To show error when user did not select gender, */}
           {/* We just have to render the div below (Not using is-invalid bootstrap class) */}
           {/* <div className="text-danger">Please select gender</div> */}
+          {genderError && <div className="text-danger">Please select gender</div>}
         </div>
       </div>
 
