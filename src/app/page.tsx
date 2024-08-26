@@ -94,7 +94,7 @@ export default function RegisterForm() {
         <div>
           <label className="form-label">Last name</label>
           <input
-            className="form-control"
+            className={"form-control" + (fnameError ? " is-invalid" : "")}
             onChange={inputLnameOnChange}
             value={lname}
           />
