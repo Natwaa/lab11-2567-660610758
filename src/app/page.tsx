@@ -13,6 +13,7 @@ export default function RegisterForm() {
   const [buyBottle, setBuyBottle] = useState(false);
   const [buyShoes, setBuyShoes] = useState(false);
   const [buyCap, setBuyCap] = useState(false);
+  const [agree, setAgree] = useState(false);
 
   // ----------------------------------------------------------------
 
@@ -71,6 +72,11 @@ export default function RegisterForm() {
     return total;
   };
 
+  
+  const isUserAgreed = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAgree(event.target.checked);
+  };
+
   // ----------------------------------------------------------------
 
   const registerBtnOnClick = () => {
@@ -104,7 +110,6 @@ export default function RegisterForm() {
         `Registration complete. Please pay money for ${computeTotalPayment().toLocaleString()} THB.`
       );
     }
-
   };
 
   return (
@@ -220,8 +225,7 @@ export default function RegisterForm() {
 
       {/* Terms and conditions */}
       <div>
-        <input className="me-2" type="checkbox" />I agree to the terms and
-        conditions
+        <input className="me-2" type="checkbox" onChange = {isUserAgreed} />I agree to the terms and conditions
       </div>
 
       {/* Register Button */}
@@ -230,6 +234,7 @@ export default function RegisterForm() {
         onClick={registerBtnOnClick}
         //You can embbed a state like below to disabled the button
         //disabled={isUserAgreed}
+        disabled={!agree}
       >
         Register
       </button>
