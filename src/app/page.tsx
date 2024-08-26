@@ -64,6 +64,9 @@ export default function RegisterForm() {
     if (buyBottle) total += 200;
     if (buyShoes) total += 600;
     if (buyCap) total += 400;
+    if (buyBottle && buyShoes && buyCap) {
+      return total * 0.8;
+    }
 
     return total;
   };
@@ -212,6 +215,7 @@ export default function RegisterForm() {
         Total Payment : {computeTotalPayment().toLocaleString()} THB
         {/* Render below element conditionally when user get 20% discount */}
         {/* <span className="text-success d-block">(20% Discounted)</span> */}
+        {buyBottle && buyShoes && buyCap && <span className="text-success d-block">(20% Discounted)</span> }
       </div>
 
       {/* Terms and conditions */}
